@@ -11,6 +11,42 @@ configuration (see [here](#checking-style-on-a-ci-server)) and verify its status
 using another repository. The status of that repository's build is reported by
 the "travis example" badge above.
 
+## Changes
+
+This fork adds spaces between the name and opening parenthesis of functions, enums, and macros:
+
+```rs
+fn foo () {}
+//    ^
+
+struct Tuple_Struct (i32);
+//                 ^
+
+enum Enum {
+  Variant (i32)
+  //     ^
+}
+
+fn main () {
+  foo ();
+  // ^
+
+  match Some (1) {
+    //      ^
+    Some (x) => {}
+    //  ^
+    _ => {}
+  }
+
+  println! ("Hello World");
+  //      ^
+}
+```
+
+It also changes the default value for the `tab_spaces` option to `2`.
+
+The included `install.sh` script copies the release binary to `~/.local/bin/my-rustfmt` so it can be installed alongside the official version.
+
 ## Quick start
 
 You can run `rustfmt` with Rust 1.24 and above.
@@ -105,7 +141,7 @@ The easiest way to run rustfmt against a project is with `cargo fmt`. `cargo fmt
 single-crate projects and [cargo workspaces](https://doc.rust-lang.org/book/ch14-03-cargo-workspaces.html).
 Please see `cargo fmt --help` for usage information.
 
-You can specify the path to your own `rustfmt` binary for cargo to use by setting the`RUSTFMT` 
+You can specify the path to your own `rustfmt` binary for cargo to use by setting the`RUSTFMT`
 environment variable. This was added in v1.4.22, so you must have this version or newer to leverage this feature (`cargo fmt --version`)
 
 ### Running `rustfmt` directly

@@ -36,7 +36,7 @@ create_config! {
     // Fundamental stuff
     max_width: usize, 100, true, "Maximum width of each line";
     hard_tabs: bool, false, true, "Use tab characters for indentation, spaces for alignment";
-    tab_spaces: usize, 4, true, "Number of spaces per tab";
+    tab_spaces: usize, 2, true, "Number of spaces per tab";
     newline_style: NewlineStyle, NewlineStyle::Auto, true, "Unix or Windows line endings";
     indent_style: IndentStyle, IndentStyle::Block, false, "How do we indent expressions or items";
 
@@ -608,7 +608,7 @@ mod test {
         let default_config = format!(
             r#"max_width = 100
 hard_tabs = false
-tab_spaces = 4
+tab_spaces = 2
 newline_style = "Auto"
 indent_style = "Block"
 use_small_heuristics = "Default"

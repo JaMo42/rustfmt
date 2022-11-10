@@ -480,7 +480,7 @@ fn rewrite_tuple_pat(
 
     let is_last_pat_dotdot = pat_vec.last().map_or(false, |p| p.is_dotdot());
     let add_comma = path_str.is_none() && pat_vec.len() == 1 && !is_last_pat_dotdot;
-    let path_str = path_str.unwrap_or_default();
+    let path_str = path_str.map (|mut s| { s.push (' '); s }).unwrap_or_default();
 
     overflow::rewrite_with_parens(
         context,

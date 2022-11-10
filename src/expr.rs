@@ -1273,9 +1273,10 @@ pub(crate) fn rewrite_call(
     span: Span,
     shape: Shape,
 ) -> Option<String> {
+    let callee_with_space = format! ("{} ", callee);
     overflow::rewrite_with_parens(
         context,
-        callee,
+        &callee_with_space,
         args.iter(),
         shape,
         span,

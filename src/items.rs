@@ -1380,10 +1380,15 @@ fn format_empty_struct_or_tuple(
     opener: &str,
     closer: &str,
 ) {
-    // 3 = " {}" or "();"
-    let used_width = last_line_used_width(result, offset.width()) + 3;
+    // 3 = " {}"
+    // 4 = " ();"
+    let overhead = if opener == "(" { 4 } else { 3 };
+    let used_width = last_line_used_width(result, offset.width()) + overhead;
     if used_width > context.config.max_width() {
         result.push_str(&offset.to_string_with_newline(context.config))
+    }
+    if opener == "(" {
+      result.push ('(');
     }
     result.push_str(opener);
 
@@ -1480,6 +1485,7 @@ fn format_tuple_struct(
         } else {
             struct_parts.ident.span.hi()
         };
+        result = format! ("{} ", result);
         result = overflow::rewrite_with_parens(
             context,
             &result,
@@ -2261,6 +2267,7 @@ fn rewrite_fn_base(
         one_line_budget, multi_line_budget, param_indent
     );
 
+    result.push(' ');
     result.push('(');
     // Check if vertical layout was forced.
     if one_line_budget == 0
@@ -2654,7 +2661,9 @@ fn compute_budgets_for_params(
     if !result.contains('\n') && !force_vertical_layout {
         // 2 = `()`, 3 = `() `, space is before ret_string.
         let overhead = if ret_str_len == 0 { 2 } else { 3 };
-        let mut used_space = indent.width() + result.len() + ret_str_len + overhead;
+        // 1 = " ", space between function name and opening parenthesis
+        let extra_space_overhead = 1;
+        let mut used_space = indent.width() + result.len() + ret_str_len + overhead + extra_space_overhead;
         match fn_brace_style {
             FnBraceStyle::None => used_space += 1,     // 1 = `;`
             FnBraceStyle::SameLine => used_space += 2, // 2 = `{}`

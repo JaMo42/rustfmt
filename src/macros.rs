@@ -248,6 +248,8 @@ fn rewrite_macro_inner(
         }
     };
 
+    let macro_name = format! ("{} ", macro_name);
+
     if !arg_vec.is_empty() && arg_vec.iter().all(MacroArg::is_item) {
         return rewrite_macro_with_items(
             context,
