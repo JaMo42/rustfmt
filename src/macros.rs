@@ -1304,7 +1304,9 @@ impl MacroBranch {
         if has_block_body {
             result += new_body.trim();
         } else if !new_body.is_empty() {
-            result += "\n";
+            // This works with the official rustfmt but inserts a superfluous
+            // newline for me?
+            //result += "\n";
             result += &new_body;
             result += &shape.indent.to_string(&config);
         }
