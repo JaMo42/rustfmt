@@ -214,12 +214,12 @@ fn rewrite_macro_inner(
     if ts.is_empty() && !has_comment {
         return match style {
             Delimiter::Parenthesis if position == MacroPosition::Item => {
-                Some(format!("{}();", macro_name))
+                Some(format!("{} ();", macro_name))
             }
             Delimiter::Bracket if position == MacroPosition::Item => {
                 Some(format!("{}[];", macro_name))
             }
-            Delimiter::Parenthesis => Some(format!("{}()", macro_name)),
+            Delimiter::Parenthesis => Some(format!("{} ()", macro_name)),
             Delimiter::Bracket => Some(format!("{}[]", macro_name)),
             Delimiter::Brace => Some(format!("{} {{}}", macro_name)),
             _ => unreachable!(),
