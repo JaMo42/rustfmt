@@ -879,7 +879,7 @@ fn rewrite_bare_fn(
         false,
     ));
 
-    result.push_str("fn");
+    result.push_str("fn ");
 
     let func_ty_shape = if context.use_block_indent() {
         shape.offset_left(result.len())?
