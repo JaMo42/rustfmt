@@ -27,6 +27,11 @@ enum Enum {
   //     ^
 }
 
+fn bar (x: fn () -> i32) -> i32 {
+//           ^
+  x ();
+}
+
 fn main () {
   foo ();
   // ^
